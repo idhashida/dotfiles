@@ -19,6 +19,8 @@ map("v", ">", ">gv", opts)
 map("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
 
 -- bufferline ----------------------------------------------------------------
-map("n", "<Leader>bp", ":BufferLinePick<CR>", opts)       -- Выбрать буфер
-map("n", "<Leader>bn", ":BufferLineCycleNext<CR>", opts)  -- Следующий буфер
-map("n", "<Leader>bb", ":BufferLineCyclePrev<CR>", opts)  -- Предыдущий буфер
+map("n", "<Leader>bp", ":BufferLinePick<CR>", opts) -- Выбрать буфер
+map("n", "<Leader>bn", ":BufferLineCycleNext<CR>", opts) -- Следующий буфер
+map("n", "<Leader>bb", ":BufferLineCyclePrev<CR>", opts) -- Предыдущий буфер
+map("n", "<Leader>bd", ":bd<CR>", opts) -- Закрыть буфер
+

@@ -18,22 +18,14 @@ local mason_lspconfig = {
 	opts = {
 		ensure_installed = {
 			"efm",
-			"bashls",
-			"ts_ls",
-			"pyright",
-			"jsonls",
-			"dockerls",
-      "gopls",
-      "html",
-      "eslint",
-      "cssls"
+			"gopls",
 		},
 		automatic_installation = true,
 	},
 	event = "BufReadPre",
 	dependencies = {
-    "williamboman/mason.nvim",
-  } 
+		"williamboman/mason.nvim",
+	},
 }
 
 return {

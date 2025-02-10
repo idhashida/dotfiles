@@ -1,161 +1,71 @@
---local on_attach = require("util.lsp").on_attach
---local diagnostic_signs = require("util.icons").diagnostic_signs
---local typescript_organise_imports = require("util.lsp").typescript_organise_imports
-
 local config = function()
-	require("neoconf").setup({})
-	local cmp_nvim_lsp = require("cmp_nvim_lsp")
 	local lspconfig = require("lspconfig")
-	local capabilities = cmp_nvim_lsp.default_capabilities()
+
+	local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+	for type, icon in pairs(signs) do
+		local hl = "DiagnosticSign" .. type
+		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+	end
+
+	local on_attach = function(client, bufnr)
+		local opts = { noremap = true, silent = true, buffer = bufnr }
+
+		-- set keybinds
+		vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+		vim.keymap.set("n", "<Leader>fd", "<cmd>Lspsaga finder<CR>", opts) -- go to definition
+		vim.keymap.set("n", "<Leader>gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- peak definition
+		vim.keymap.set("n", "<Leader>gD", "<cmd>Lspsaga goto_definition<CR>", opts) -- go to definition
+		vim.keymap.set("n", "<Leader>gS", "<cmd>vsplit | Lspsaga goto_definition<CR>", opts) -- go to definition
+		vim.keymap.set("n", "<Leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
+		vim.keymap.set("n", "<Leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
+		vim.keymap.set("n", "<Leader>D", "<cmd>Lspsaga show_line_diagnostics<CR>", opts) -- show  diagnostics for line
+		vim.keymap.set("n", "<Leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
+		vim.keymap.set("n", "<Leader>pd", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to prev diagnostic in buffer
+		vim.keymap.set("n", "<Leader>nd", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
+	end
 
 	-- lua
 	lspconfig.lua_ls.setup({
-		capabilities = capabilities,
+		-- capabilities = capabilities,
 		on_attach = on_attach,
-		settings = { -- custom settings for lua
+		settings = {
 			Lua = {
-				-- make the language server recognize "vim" global
 				diagnostics = {
 					globals = { "vim" },
 				},
 				workspace = {
 					library = {
-						vim.fn.expand("$VIMRUNTIME/lua"),
-						vim.fn.expand("$XDG_CONFIG_HOME") .. "/nvim/lua",
+						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+						[vim.fn.stdpath("config") .. "/lua"] = true,
 					},
 				},
 			},
 		},
 	})
 
-	-- json
-	lspconfig.jsonls.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		filetypes = { "json", "jsonc" },
-	})
-
-	-- python
-	lspconfig.pyright.setup({
-		capabilities = capabilities,
+	-- golang
+	lspconfig.gopls.setup({
+		-- capabilities = capabilities,
 		on_attach = on_attach,
 		settings = {
-			pyright = {
-				disableOrganizeImports = false,
-				analysis = {
-					useLibraryCodeForTypes = true,
-					autoSearchPaths = true,
-					diagnosticMode = "workspace",
-					autoImportCompletions = true,
+			gopls = {
+				analyses = {
+					unusedparams = true,
 				},
+				staticcheck = true,
+				gofumpt = true,
 			},
 		},
 	})
 
-	-- typescript
-	lspconfig.ts_ls.setup({
-		on_attach = on_attach,
-		capabilities = capabilities,
-		filetypes = {
-			"typescript",
-			"javascript",
-			"typescriptreact",
-			"javascriptreact",
-		},
-		commands = {
-			TypeScriptOrganizeImports = typescript_organise_imports,
-		},
-		settings = {
-			typescript = {
-				indentStyle = "space",
-				indentSize = 2,
-			},
-		},
-	})
-
-	-- bash
-	lspconfig.bashls.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		filetypes = { "sh", "aliasrc" },
-	})
-
-	-- typescriptreact, javascriptreact, css, sass, scss, less, svelte, vue
-	lspconfig.emmet_ls.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		filetypes = {
-			"typescriptreact",
-			"javascriptreact",
-			"javascript",
-			"css",
-			"sass",
-			"scss",
-			"less",
-			"svelte",
-			"vue",
-			"html",
-		},
-	})
-
-	-- docker
-	lspconfig.dockerls.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-	})
-
-	-- C/C++
-	lspconfig.clangd.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		cmd = {
-			"clangd",
-			"--offset-encoding=utf-16",
-		},
-	})
-
-	for type, icon in pairs(diagnostic_signs) do
-		local hl = "DiagnosticSign" .. type
-		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-	end
-
-	local solhint = require("efmls-configs.linters.solhint")
-	local prettier_d = require("efmls-configs.formatters.prettier_d")
-	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
-	local flake8 = require("efmls-configs.linters.flake8")
-	local black = require("efmls-configs.formatters.black")
-	local eslint = require("efmls-configs.linters.eslint")
-	local fixjson = require("efmls-configs.formatters.fixjson")
-	local shellcheck = require("efmls-configs.linters.shellcheck")
-	local shfmt = require("efmls-configs.formatters.shfmt")
-	local hadolint = require("efmls-configs.linters.hadolint")
-	local cpplint = require("efmls-configs.linters.cpplint")
-	local clangformat = require("efmls-configs.formatters.clang_format")
-  local gopls = require("efmls-configs.linters.gopls")
+	local gofumpt = require("efmls-configs.formatters.gofumpt")
 
 	-- configure efm server
 	lspconfig.efm.setup({
 		filetypes = {
-			"solidity",
 			"lua",
-			"python",
-			"json",
-			"jsonc",
-			"sh",
-			"javascript",
-			"javascriptreact",
-			"typescript",
-			"typescriptreact",
-			"svelte",
-			"vue",
-			"markdown",
-			"docker",
-			"html",
-			"css",
-			"c",
-			"cpp",
-      "go",
+			"go",
 		},
 		init_options = {
 			documentFormatting = true,
@@ -167,27 +77,25 @@ local config = function()
 		},
 		settings = {
 			languages = {
-				solidity = { solhint, prettier_d },
-				lua = { luacheck, stylua },
-				python = { flake8, black },
-				typescript = { eslint, prettier_d },
-				json = { eslint, fixjson },
-				jsonc = { eslint, fixjson },
-				sh = { shellcheck, shfmt },
-				javascript = { eslint, prettier_d },
-				javascriptreact = { eslint, prettier_d },
-				typescriptreact = { eslint, prettier_d },
-				svelte = { eslint, prettier_d },
-				vue = { eslint, prettier_d },
-				markdown = { prettier_d },
-				docker = { hadolint, prettier_d },
-				html = { prettier_d },
-				css = { prettier_d },
-				c = { clangformat, cpplint },
-				cpp = { clangformat, cpplint },
-        go = { gopls },
+				lua = { stylua },
+				go = { gofumpt },
 			},
 		},
+	})
+
+	-- Format on Save
+	local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", {})
+	vim.api.nvim_create_autocmd("BufWritePost", {
+		group = lsp_fmt_group,
+		callback = function()
+			local efm = vim.lsp.get_active_clients({ name = "efm" })
+
+			if vim.tbl_isempty(efm) then
+				return
+			end
+
+			vim.lsp.buf.format({ name = "efm" })
+		end,
 	})
 end
 
