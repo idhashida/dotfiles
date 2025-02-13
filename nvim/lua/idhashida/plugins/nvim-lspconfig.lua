@@ -1,7 +1,8 @@
 local config = function()
+	local cmp_nvim_lsp = require("cmp_nvim_lsp")
 	local lspconfig = require("lspconfig")
 
-	local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+	local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 	for type, icon in pairs(signs) do
 		local hl = "DiagnosticSign" .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -24,9 +25,11 @@ local config = function()
 		vim.keymap.set("n", "<Leader>nd", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
 	end
 
+	local capabilities = cmp_nvim_lsp.default_capabilities()
+
 	-- lua
 	lspconfig.lua_ls.setup({
-		-- capabilities = capabilities,
+		capabilities = capabilities,
 		on_attach = on_attach,
 		settings = {
 			Lua = {
@@ -45,7 +48,7 @@ local config = function()
 
 	-- golang
 	lspconfig.gopls.setup({
-		-- capabilities = capabilities,
+		capabilities = capabilities,
 		on_attach = on_attach,
 		settings = {
 			gopls = {
@@ -54,6 +57,20 @@ local config = function()
 				},
 				staticcheck = true,
 				gofumpt = true,
+			},
+		},
+	})
+
+	-- php
+	lspconfig.intelephense.setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		settings = {
+			intelephense = {
+				analyses = {
+					unusedparams = true,
+				},
+				staticcheck = true,
 			},
 		},
 	})
@@ -107,5 +124,8 @@ return {
 		"windwp/nvim-autopairs",
 		"williamboman/mason.nvim",
 		"creativenull/efmls-configs-nvim",
+    "hrsh7th/nvim-cmp",
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-nvim-lsp",
 	},
 }
