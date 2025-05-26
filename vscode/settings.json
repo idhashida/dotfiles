@@ -1,0 +1,95 @@
+{
+    // Theme.
+    "workbench.colorTheme": "Noctis High Contrast",
+    "workbench.iconTheme": "material-icon-theme",
+  
+    // Main Editor.
+    "window.newWindowDimensions": "maximized",
+    "workbench.editor.labelFormat": "medium",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.statusBar.visible": false,
+    "workbench.tree.renderIndentGuides": "none",
+    "workbench.tree.enableStickyScroll": false,
+    "workbench.editor.showTabs": "single",
+    "workbench.editor.enablePreview": false,
+    "workbench.sideBar.location": "right",
+    "workbench.editor.empty.hint": "hidden",
+    "workbench.layoutControl.enabled": false,
+  
+    // Editor.
+    "editor.cursorBlinking": "solid",
+    "editor.accessibilitySupport": "off",
+    "editor.codeLens": true,
+    "editor.dragAndDrop": false,
+    "editor.folding": false,
+    "editor.showFoldingControls": "mouseover",
+    "explorer.openEditors.visible": 1,
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "selection",
+    "editor.renderLineHighlight": "all",
+    "editor.cursorSurroundingLines": 5,
+    "editor.useTabStops": false,
+    "editor.insertSpaces": true,
+    "editor.formatOnPaste": false,
+    "workbench.editor.wrapTabs": true,
+    "editor.stickyScroll.enabled": false,
+    "extensions.ignoreRecommendations": true,
+    "breadcrumbs.enabled": false,
+    "window.commandCenter": false,
+    "workbench.activityBar.location": "top",
+    "workbench.editor.tabActionCloseVisibility": false,
+    "editor.scrollbar.vertical": "auto",
+    "explorer.autoReveal": false,
+    "explorer.compactFolders": false,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "window.menuBarVisibility": "compact",
+    "editor.parameterHints.enabled": false,
+  
+    // Navigation (all goto -> peek).
+    "editor.gotoLocation.multipleReferences": "peek",
+    "editor.gotoLocation.multipleDefinitions": "peek",
+    "editor.gotoLocation.multipleDeclarations": "peek",
+    "editor.gotoLocation.multipleImplementations": "peek",
+    "editor.gotoLocation.multipleTypeDefinitions": "peek",
+  
+    // Font.
+    "editor.fontSize": 14,
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "terminal.integrated.fontFamily": "Fira Code",
+    "terminal.integrated.fontSize": 14,
+  
+    // Debug.
+    "debug.inlineValues": "on",
+    "debug.autoExpandLazyVariables": true,
+    "debug.allowBreakpointsEverywhere": true,
+    "debug.console.closeOnEnd": true,
+  
+    // Terminal.
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "terminal.integrated.stickyScroll.enabled": false,
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+  
+    // Save.
+    "files.autoSave": "off",
+    "editor.formatOnSave": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+  
+    // Tools, extensions, and languages:
+    "update.mode": "none",
+    "extensions.autoCheckUpdates": false,
+    "update.showReleaseNotes": false,
+    "update.enableWindowsBackgroundUpdates": false,
+    "vim.useSystemClipboard": true,
+    "go.toolsManagement.autoUpdate": true,
+    "editor.unicodeHighlight.allowedLocales": {
+        "ru": true
+    },
+  
+    // Telemetry
+    "telemetry.telemetryLevel": "off",
+}
