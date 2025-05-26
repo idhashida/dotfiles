@@ -1,13 +1,12 @@
 {
     // Theme.
-    "workbench.colorTheme": "Noctis High Contrast",
+    "workbench.colorTheme": "Noctis High Contrast No Italic No Bold",
     "workbench.iconTheme": "material-icon-theme",
-  
     // Main Editor.
     "window.newWindowDimensions": "maximized",
     "workbench.editor.labelFormat": "medium",
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.statusBar.visible": false,
+    "workbench.statusBar.visible": true,
     "workbench.tree.renderIndentGuides": "none",
     "workbench.tree.enableStickyScroll": false,
     "workbench.editor.showTabs": "single",
@@ -15,7 +14,6 @@
     "workbench.sideBar.location": "right",
     "workbench.editor.empty.hint": "hidden",
     "workbench.layoutControl.enabled": false,
-  
     // Editor.
     "editor.cursorBlinking": "solid",
     "editor.accessibilitySupport": "off",
@@ -44,41 +42,37 @@
     "editor.cursorSmoothCaretAnimation": "on",
     "window.menuBarVisibility": "compact",
     "editor.parameterHints.enabled": false,
-  
     // Navigation (all goto -> peek).
     "editor.gotoLocation.multipleReferences": "peek",
     "editor.gotoLocation.multipleDefinitions": "peek",
     "editor.gotoLocation.multipleDeclarations": "peek",
     "editor.gotoLocation.multipleImplementations": "peek",
     "editor.gotoLocation.multipleTypeDefinitions": "peek",
-  
     // Font.
     "editor.fontSize": 14,
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
     "terminal.integrated.fontFamily": "Fira Code",
     "terminal.integrated.fontSize": 14,
-  
     // Debug.
     "debug.inlineValues": "on",
     "debug.autoExpandLazyVariables": true,
     "debug.allowBreakpointsEverywhere": true,
     "debug.console.closeOnEnd": true,
-  
     // Terminal.
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.defaultProfile.windows": "PowerShell",
     "terminal.integrated.stickyScroll.enabled": false,
     "terminal.integrated.enableMultiLinePasteWarning": "never",
-  
     // Save.
     "files.autoSave": "off",
     "editor.formatOnSave": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
-  
+    // Telemetry
+    "telemetry.telemetryLevel": "off",
     // Tools, extensions, and languages:
     "update.mode": "none",
     "extensions.autoCheckUpdates": false,
@@ -89,7 +83,8 @@
     "editor.unicodeHighlight.allowedLocales": {
         "ru": true
     },
-  
-    // Telemetry
-    "telemetry.telemetryLevel": "off",
+    "vim.easymotion": true,
+    "[php]": {
+        "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    },
 }
