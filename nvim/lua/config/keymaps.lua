@@ -1,3 +1,9 @@
+-- open config file and run :Oil
+vim.keymap.set("n", "<leader>config", function()
+	vim.cmd(":e ~/.config/nvim/init.lua")
+	vim.cmd(":Oil")
+end, { silent = true, desc = "Open neovim config" })
+
 -- source and update neovim config
 vim.keymap.set("n", "<leader>so", function()
 	vim.cmd("update")
@@ -13,11 +19,12 @@ end, { silent = true, desc = "Restart nvim and restore session" })
 
 -- Disable Space bar since it will be used as the leader key
 vim.keymap.set({ "n", "v" }, "<leader>", "<nop>", { desc = "Disable leader key default" })
+vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Q" })
 
 -- Redo remap
 vim.keymap.set("n", "U", "<C-r>", { desc = "Redo" })
 
--- after a search, press escape to clear highlights
+-- After a search, press escape to clear highlights
 vim.keymap.set("n", "<Esc>", ":nohl<CR>", { silent = true, desc = "Clear search highlights" })
 
 -- Swap between split buffers
@@ -27,17 +34,19 @@ vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { silent = true, desc = "Move to a
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { silent = true, desc = "Move to right split" })
 vim.keymap.set("n", "<leader>rr", ":wincmd r<CR>", { silent = true, desc = "Rotate split buffers" })
 
--- Save and quit current file quicker
-vim.keymap.set("n", "<leader>w", ":w<cr>", { silent = true, noremap = true, desc = "Save current file" })
-vim.keymap.set({ "n", "t" }, "<leader>q", ":q<cr>", { silent = true, noremap = true, desc = "Quit current buffer" })
+-- Splitting & resizing
+vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Split window vertically" })
+vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Split window horizontally" })
+vim.keymap.set("n", "<C-Up>", ":resize +2<CR>", { desc = "Increase window height" })
+vim.keymap.set("n", "<C-Down>", ":resize -2<CR>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
+vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
 
--- Little one from Primeagen to mass replace string in a file
-vim.keymap.set(
-	"n",
-	"<leader>s",
-	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-	{ silent = false, desc = "Search and replace word under cursor" }
-)
+-- Window navigation
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to up window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
 -- Navigate through buffers
 vim.keymap.set("n", "<S-l>", ":bnext<CR>", { silent = true, desc = "Next buffer" })
@@ -69,14 +78,12 @@ vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { silent = true, desc = "Vertica
 vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { silent = true, desc = "Move selection down" })
 vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move selection up" })
 
+-- Better indenting in visual mode
+vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
+vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
+
 -- Exit terminal with Esc
 vim.keymap.set("t", "<Esc>", "<C-\\><C-N>", { desc = "Exit terminal mode" })
-
--- open config file and run :Oil
-vim.keymap.set("n", "<leader>config", function()
-	vim.cmd(":e ~/.config/nvim/init.lua")
-	vim.cmd(":Oil")
-end, { silent = true, desc = "Open neovim config" })
 
 -- toggle inlayhints
 vim.keymap.set("n", "<leader>i", function()
@@ -84,12 +91,15 @@ vim.keymap.set("n", "<leader>i", function()
 	vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay Hints Enabled" or "Inlay Hints Disabled")
 end, { silent = true, desc = "Toggle inlay hints" })
 
-vim.keymap.set("n", "<leader>tn", ":tabnew<CR>", { silent = true, desc = "New tab" })
-vim.keymap.set("n", "<leader>tq", ":tabclose<CR>", { silent = true, desc = "Close tab" })
-vim.keymap.set("n", "<leader>ts", ":tab split<CR>", { silent = true, desc = "Split to new tab" })
-vim.keymap.set("n", "<leader><Tab>", ":tabnext<CR>", { silent = true, desc = "Next tab" })
-vim.keymap.set("n", "<leader><S-Tab>", ":tabprevious<CR>", { silent = true, desc = "Previous tab" })
+-- Mass replace string in a file
+vim.keymap.set(
+	"n",
+	"<leader>s",
+	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ silent = false, desc = "Search and replace word under cursor" }
+)
 
+-- FOR AI --
 -- Copy file path / selection reference for pasting into AI chats
 local function copy_ref(opts)
 	-- "%" is the current buffer's file name; ":." makes it relative to the cwd

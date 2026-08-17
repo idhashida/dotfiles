@@ -12,17 +12,5 @@ require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 		go = { "goimports", "gofmt" },
-		json = { "prettierd" },
-		sql = { "sql_formatter" },
-	},
-	formatters = {
-		sql_formatter = {
-			prepend_args = { "--language", "postgresql" },
-		},
-		prettierd = {
-			condition = function(_, ctx)
-				return vim.fs.root(ctx.filename, { "biome.json" }) == nil
-			end,
-		},
 	},
 })

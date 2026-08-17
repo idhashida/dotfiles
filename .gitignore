@@ -18,7 +18,7 @@
 secrets/
 
 # Generated/lock files
-nvim/.config/nvim/nvim-pack-lock.json
+~/.config/nvim/nvim-pack-lock.json
 
 # Dependencies
 node_modules/

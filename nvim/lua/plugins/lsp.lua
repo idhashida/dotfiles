@@ -14,9 +14,7 @@ require("mason-tool-installer").setup({
 	ensure_installed = {
 		"stylua",
 		"lua_ls",
-		"tsgo",
 		"gopls",
-		"sqls",
 		"jsonls",
 		"yamlls",
 	},
